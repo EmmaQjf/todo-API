@@ -20,7 +20,7 @@ exports.createTodoItem = async(req, res) => {
 
 exports.getSpecificTodoItem = async(req, res) => {
     try {
-        const foundTodo = await Todo.find({_id: req.params.id})
+        const foundTodo = await Todo.findOne({_id: req.params.id})
         res.json(foundTodo)
     } catch (error) {
         res.status(400).json({message: error.message})
@@ -29,7 +29,7 @@ exports.getSpecificTodoItem = async(req, res) => {
 
 exports.updateTodoItem= async(req, res)=> {
     try {
-        const updatedTodo = await Todo.findOneAndUpdate({_id: req.params.id},req.body,{new:true})
+        const updatedTodo = await Todo.findOneAndUpdate({"_id": req.params.id},req.body,{new:true})
         res.json(updatedTodo)
     }catch(error) {
         res.status(400).json({message: error.message})
@@ -38,8 +38,8 @@ exports.updateTodoItem= async(req, res)=> {
 
 exports.deleteTodoItem = async(req, res) => {
     try {
-        await Todo.findOneAndDelete({_id: req.params.id})
-        res.json('item deleted')
+        await Todo.findOneAndDelete({"_id": req.params.id})
+        res.json({message: 'item deleted'})
     } catch (error) {
         res.status(400).json({message: error.message})
     }
